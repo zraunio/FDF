@@ -78,10 +78,10 @@ void			read_file(char *file, t_coord *data)
 	i = 0;
 	data->y = get_y(file);
 	data->x = get_x(file);
-	if (!(data->z_matrix = (int**)malloc(sizeof(int*) * (data->y + 1))))
+	if (!(data->z_matrix = (int**)malloc(sizeof(int*) * (data->y))))
 		return ;
 	while (i <= data->y)
-		if (!(data->z_matrix[i++] = (int*)malloc(sizeof(int) * (data->x + 1))))
+		if (!(data->z_matrix[i++] = (int*)malloc(sizeof(int) * (data->x))))
 			return ;
 	fd = open(file, O_RDONLY, 0);
 	i = 0;
@@ -92,6 +92,5 @@ void			read_file(char *file, t_coord *data)
 		i++;
 	}
 	close(fd);
-	data->z_matrix[i] = NULL;
 	set_initial(data);
 }
