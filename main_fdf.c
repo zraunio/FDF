@@ -66,6 +66,11 @@ int		main(int argc, char **argv)
 			60);
 			return (0);
 		}
+		if (!valid_file(argv[1]))
+		{
+			ft_putendl("Invalid input.");
+			return (0);
+		}
 		if (!(map = (t_coord*)malloc(sizeof(t_coord))))
 			return (0);
 		read_file(argv[1], map);

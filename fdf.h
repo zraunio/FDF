@@ -30,6 +30,8 @@ typedef struct	s_coord
 	int			**z_matrix;
 	float		x_x;
 	float		y_y;
+	int			z;
+	int			z_z;
 	float		x_gap;
 	float		y_gap;
 	int			mv_y;
@@ -50,6 +52,7 @@ void			draw_line(float x, float y, t_coord *map);
 void			print_text(t_coord *map);
 int				draw_colour(int z, int zz, t_coord *map);
 int				win_close(int key, t_coord *map);
+int				valid_file(char *file);
 
 #endif
 

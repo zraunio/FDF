@@ -1,27 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/02 11:50:59 by zraunio           #+#    #+#             */
-/*   Updated: 2020/11/02 11:51:45 by zraunio          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "fdf.h"
 
-while (get_next_line(file, &line))
+int		valid_file(char *file)
 {
-	if (line[i] >= '0' || line[i] <= '9')
-		j++;
-	i++;
-}
-if (j == 0)
-	return (-1);
+	int		fd;
+	int		i;
+	char	*line;
 
-while (i < map->y)
-{
-	if (ft_strlen(map->z_matrix[i] != ft_strlen(map->z_matrix[i + 1]))
-		return (-1);
-	i++;
+	i = 0;
+	fd = open(file, O_RDONLY, 0);
+	while (get_next_line(fd, &line))
+	{
+		while (line[i])
+		{
+			if (ft_isdigit(line[i]) == 0 &&
+			line[i] != '-' && ft_isspace(line[i]) == 0)
+				return (0);
+			else
+				i++;
+		}
+	}
+	return (1);
 }

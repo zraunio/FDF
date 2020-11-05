@@ -5,6 +5,7 @@ SRC = \
 ./file_read.c \
 ./keys.c \
 ./main_fdf.c \
+./errors.c
 
 OUT = $(SRC:.c=.o)
 

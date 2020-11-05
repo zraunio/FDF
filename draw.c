@@ -18,12 +18,17 @@ void	draw_dimentions(float *x, float *y, int z, t_coord *map)
 	*y = (*x + *y) * sin(map->angle) - z;
 }
 
+	/*int		temp;
+
+	temp = *y;
+	*y = temp * cos(map->angle) + *z * sin(map->angle);
+	*z = -temp * sin(map->angle) + *z * cos(map->angle);*/
+
 int		get_depth(float x, float y, t_coord *map)
 {
 	int		z;
-	int		z_z;
 
-	z = map->z_matrix[(int)y][(int)x];
+	z = map->z_matrix[(int)y][(int)x]; 
 	z *= map->depth;
 	return (z);
 }
@@ -41,18 +46,12 @@ void	gap_calc(float x, float y, t_coord *map)
 
 void	draw_line(float x, float y, t_coord *map)
 {
-	int		i;
-	int		z;
-	int		z_z;
-
-	z = get_depth(x, y, map);
-	z_z = get_depth(map->x_x, map->y_y, map);
 	x *= map->zoom;
 	y *= map->zoom;
 	map->x_x *= map->zoom;
 	map->y_y *= map->zoom;
-	draw_dimentions(&x, &y, z, map);
-	draw_dimentions(&map->x_x, &map->y_y, z_z, map);
+	draw_dimentions(&x, &y, map->z, map);
+	draw_dimentions(&map->x_x, &map->y_y, map->z_z, map);
 	x += map->mv_x;
 	y += map->mv_y;
 	map->x_x += map->mv_x;
@@ -60,7 +59,7 @@ void	draw_line(float x, float y, t_coord *map)
 	gap_calc(x, y, map);
 	while ((int)(x - map->x_x) || (int)(y - map->y_y))
 	{
-		map->colour = draw_colour(z, z_z, map);
+		map->colour = draw_colour(map->z, map->z_z, map);
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, map->colour);
 		x += map->x_gap;
 		y += map->y_gap;
@@ -82,12 +81,16 @@ void	draw_map(t_coord *map)
 			{
 				map->x_x = x + 1;
 				map->y_y = y;
+				map->z = get_depth(x, y, map);
+				map->z_z = get_depth(map->x_x, map->y_y, map);
 				draw_line(x, y, map);
 			}
 			if (y < map->y - 1)
 			{
 				map->y_y = y + 1;
 				map->x_x = x;
+				map->z = get_depth(x, y, map);
+				map->z_z = get_depth(map->x_x, map->y_y, map);
 				draw_line(x, y, map);
 			}
 			x++;
