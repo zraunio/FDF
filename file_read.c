@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:44:21 by zraunio           #+#    #+#             */
-/*   Updated: 2020/11/02 11:44:24 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/07 14:35:21 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ static void		get_z(int *z_matrix, char *line)
 void			set_initial(t_coord *map)
 {
 	map->zoom = 10;
-	map->angle = 0.75;
-	map->depth = 10;
-	map->mv_y = 100;
-	map->mv_x = 100;
+	map->angle = 0.8;
+	map->depth = 1;
+	map->mv_y = 200;
+	map->mv_x = 200;
+	map->view = 1;
 }
 
 void			read_file(char *file, t_coord *data)
@@ -80,7 +81,7 @@ void			read_file(char *file, t_coord *data)
 	data->x = get_x(file);
 	if (!(data->z_matrix = (int**)malloc(sizeof(int*) * (data->y + 1))))
 		return ;
-	while (i <= data->y)
+	while (i < data->y)
 		if (!(data->z_matrix[i++] = (int*)malloc(sizeof(int) * (data->x + 1))))
 			return ;
 	fd = open(file, O_RDONLY, 0);

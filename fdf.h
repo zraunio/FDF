@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:43:32 by zraunio           #+#    #+#             */
-/*   Updated: 2020/11/02 11:44:16 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/07 14:41:57 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_H
 
 # include "libft/libft.h"
-# include <mlx.h>
+# include "minilibx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
@@ -30,8 +30,6 @@ typedef struct	s_coord
 	int			**z_matrix;
 	float		x_x;
 	float		y_y;
-	int			z;
-	int			z_z;
 	float		x_gap;
 	float		y_gap;
 	int			mv_y;
@@ -40,6 +38,7 @@ typedef struct	s_coord
 	double		angle;
 	int			depth;
 	int			zoom;
+	int			view;
 
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -50,9 +49,8 @@ void			draw_map(t_coord *map);
 int				handle_keys(int key, t_coord *map);
 void			draw_line(float x, float y, t_coord *map);
 void			print_text(t_coord *map);
-int				draw_colour(int z, int zz, t_coord *map);
-int				win_close(int key, t_coord *map);
-int				valid_file(char *file);
+int				draw_colour(int z, int zz);
+int				error_map(char *file);
 
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 10:27:34 by zraunio           #+#    #+#             */
-/*   Updated: 2020/07/23 10:45:03 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/04 14:18:41 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			get_next_line(const int fd, char **line)
 	}
 	if (i < 0)
 		return (-1);
-	if ((i == 0 && s[fd] == NULL) || s[fd] == '\0')
+	if ((i == 0 && s[fd] == NULL) || s[fd] == NULL)
 		return (0);
 	else
 		return (ft_find_line(s, fd, i, line));
