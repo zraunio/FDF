@@ -6,92 +6,110 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:44:21 by zraunio           #+#    #+#             */
-/*   Updated: 2020/12/07 14:35:21 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/15 11:50:18 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int		get_y(char *file)
+void			get_y(int fd, t_coord *map)
 {
 	int		y;
-	int		fd;
-	char	*line;
+	int		i;
+	char	buff[1];
 
-	fd = open(file, O_RDONLY, 0);
 	y = 0;
-	while (get_next_line(fd, &line))
+	while ((i = read(fd, buff, 1) == 1))
 	{
-		y++;
-		free(line);
+		if (buff[0] == '\n')
+			y++;
 	}
 	close(fd);
-	return (y);
+	map->y = y;
 }
 
-static int		get_x(char *file)
+static void		get_x(int fd, t_coord *map)
 {
 	int		x;
-	int		fd;
-	char	*line;
+	int		i;
+	int		flag;
+	char	buf[1];
 
 	x = 0;
-	fd = open(file, O_RDONLY, 0);
-	get_next_line(fd, &line);
-	x = ft_wdcounter(line, ' ');
-	free(line);
+	flag = 0;
+	while ((i = read(fd, buf, 1) == 1))
+	{
+		if (!flag && buf[0] != '\n' && buf[0] != ' ')
+		{
+			x++;
+			flag = 1;
+		}
+		if (flag == 1 && buf[0] == ' ')
+			flag = 0;
+		if (buf[0] == '\n')
+			break ;
+	}
 	close(fd);
-	return (x);
+	map->x = x;
 }
 
-static void		get_z(int *z_matrix, char *line)
+static void		get_coord(int fd, t_coord *map)
 {
 	int		i;
+	int		j;
+	char	*line;
 	char	**arr;
 
 	i = 0;
-	arr = ft_strsplit(line, ' ');
-	while (arr[i])
+	while (get_next_line(fd, &line) > 0)
 	{
-		z_matrix[i] = ft_atoi(arr[i]);
-		free(arr[i]);
+		arr = ft_strsplit(line, ' ');
+		j = 0;
+		ft_memdel((void**)&line);
+		while (arr[j])
+		{
+			map->z_matrix[i][j] = ft_atoi(arr[j]);
+			free(arr[j]);
+			j++;
+		}
+		ft_memdel((void**)&arr);
 		i++;
 	}
-	free(arr);
+	close(fd);
 }
 
 void			set_initial(t_coord *map)
 {
-	map->zoom = 10;
-	map->angle = 0.8;
+	if (map->y > 40 || map->x > 40)
+		map->zoom = 4;
+	else
+		map->zoom = 10;
+	map->angle = 0.523599;
 	map->depth = 1;
 	map->mv_y = 200;
-	map->mv_x = 200;
-	map->view = 1;
+	map->mv_x = 400;
 }
 
 void			read_file(char *file, t_coord *data)
 {
-	int		fd;
 	int		i;
-	char	*line;
+	int		fd;
+	int		fd1;
+	int		fd2;
 
 	i = 0;
-	data->y = get_y(file);
-	data->x = get_x(file);
+	fd = open(file, O_RDONLY, 0);
+	get_y(fd, data);
+	fd1 = open(file, O_RDONLY, 0);
+	get_x(fd1, data);
 	if (!(data->z_matrix = (int**)malloc(sizeof(int*) * (data->y + 1))))
 		return ;
 	while (i < data->y)
+	{
 		if (!(data->z_matrix[i++] = (int*)malloc(sizeof(int) * (data->x + 1))))
 			return ;
-	fd = open(file, O_RDONLY, 0);
-	i = 0;
-	while (get_next_line(fd, &line))
-	{
-		get_z(data->z_matrix[i], line);
-		free(line);
-		i++;
 	}
-	close(fd);
+	fd2 = open(file, O_RDONLY, 0);
+	get_coord(fd2, data);
 	set_initial(data);
 }

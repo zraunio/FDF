@@ -6,11 +6,12 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 10:27:34 by zraunio           #+#    #+#             */
-/*   Updated: 2020/12/04 14:18:41 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:35:19 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 /*
 **This function finds the line, places it in *line, then duplicates the
@@ -41,6 +42,7 @@ static int	ft_find_line(char **s, int fd, int i, char **line)
 			return (get_next_line(fd, line));
 		*line = ft_strdup(s[fd]);
 		ft_strdel(&s[fd]);
+		free(s[fd]);
 	}
 	return (1);
 }
@@ -59,7 +61,8 @@ int			get_next_line(const int fd, char **line)
 		buf[i] = '\0';
 		if (s[fd] == NULL)
 			s[fd] = ft_strnew(1);
-		tmp = ft_strjoin(s[fd], buf);
+		if (!(tmp = ft_strjoin(s[fd], buf)))
+			free(tmp);
 		free(s[fd]);
 		s[fd] = tmp;
 		if (ft_strchr(s[fd], '\n'))

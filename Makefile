@@ -1,11 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/12/15 11:39:03 by zraunio           #+#    #+#              #
+#    Updated: 2020/12/15 11:39:05 by zraunio          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = fdf
 
 SRC = \
-./draw.c \
-./file_read.c \
-./keys.c \
-./errors.c \
-./main_fdf.c \
+draw.c\
+file_read.c \
+keys.c \
+errors.c \
+main_fdf.c \
 
 OUT = $(SRC:.c=.o)
 
@@ -25,7 +37,7 @@ all: $(NAME)
 
 $(NAME):
 	$(MAKE) -C $(LIBDIR)
-	gcc -c $(SRC)
+	gcc -c $(FLAGS) $(SRC)
 	gcc $(FLAGS) $(LIB) $(OUT) $(LIBFLAGS) -I $(HDR) -o $(NAME)
 
 school:

@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:44:34 by zraunio           #+#    #+#             */
-/*   Updated: 2020/12/07 14:49:35 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/14 14:02:00 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int		main(int argc, char **argv)
 		if (!(map = (t_coord*)malloc(sizeof(t_coord))))
 			return (0);
 		read_file(argv[1], map);
+		ft_putnbr(map->y);
+		ft_putchar('\n');
+		ft_putnbr(map->x);
 		do_mlx(map);
 		free(map);
 	}

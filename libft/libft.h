@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zraunio <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 13:01:21 by zraunio           #+#    #+#             */
-/*   Updated: 2020/11/04 13:01:24 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/09 13:47:32 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 8
+# define BUFF_SIZE 12
 # define FD_SIZE 4096
 
 typedef struct		s_list

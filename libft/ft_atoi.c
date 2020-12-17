@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 14:09:46 by zraunio           #+#    #+#             */
-/*   Updated: 2020/07/09 16:42:34 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:04:09 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		ft_atoi(const char *str)
 {
 	size_t	i;
-	size_t	n;
-	size_t	res;
+	int		n;
+	int		res;
 
 	i = 0;
 	n = 1;

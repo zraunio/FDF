@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:44:10 by zraunio           #+#    #+#             */
-/*   Updated: 2020/12/07 14:44:00 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/14 14:51:13 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	draw_dimentions(float *x, float *y, int z, t_coord *map)
 int		get_depth(float x, float y, t_coord *map)
 {
 	int		z;
-	int		z_z;
 
 	z = map->z_matrix[(int)y][(int)x];
 	z *= map->depth;
+	z *= map->zoom;
 	return (z);
 }
 
@@ -46,7 +46,6 @@ void	gap_calc(float x, float y, t_coord *map)
 
 void	draw_line(float x, float y, t_coord *map)
 {
-	int		i;
 	int		z;
 	int		z_z;
 
@@ -56,11 +55,8 @@ void	draw_line(float x, float y, t_coord *map)
 	y *= map->zoom;
 	map->x_x *= map->zoom;
 	map->y_y *= map->zoom;
-	if (map->view)
-	{
-		draw_dimentions(&x, &y, z, map);
-		draw_dimentions(&map->x_x, &map->y_y, z_z, map);
-	}
+	draw_dimentions(&x, &y, z, map);
+	draw_dimentions(&map->x_x, &map->y_y, z_z, map);
 	x += map->mv_x;
 	y += map->mv_y;
 	map->x_x += map->mv_x;

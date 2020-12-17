@@ -6,7 +6,7 @@
 /*   By: zraunio <zraunio@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 11:43:32 by zraunio           #+#    #+#             */
-/*   Updated: 2020/12/07 14:41:57 by zraunio          ###   ########.fr       */
+/*   Updated: 2020/12/17 11:01:21 by zraunio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
-# include <stdio.h>
 
 # define MAX1(a, b) (a > b ? a : b)
 
@@ -38,7 +37,6 @@ typedef struct	s_coord
 	double		angle;
 	int			depth;
 	int			zoom;
-	int			view;
 
 	void		*mlx_ptr;
 	void		*win_ptr;
